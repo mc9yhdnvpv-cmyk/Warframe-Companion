@@ -33,20 +33,26 @@ pcProfileUrlBtn.onclick=()=>{
  window.open(PC+encodeURIComponent(id),"_blank");
 };
 
+const profilePaste=document.getElementById("profilePaste"),pasteImportBtn=document.getElementById("pasteImportBtn"),pasteStatus=document.getElementById("pasteStatus");
+function importProfileText(text){
+ const parsed=JSON.parse(String(text||"").trim());
+ const rr=parsed?.Results?.[0]||parsed?.results?.[0]||parsed;
+ if(!rr || typeof rr!=="object") throw new Error("No profile object found");
+ state.profile=parsed;
+ state.accountId=accountId.value.trim()||rr.AccountId||rr.accountId||state.accountId;
+ state.canonicalId=rr.AccountId||rr.accountId||state.accountId;
+ state.profilePlatform="PC / Cross-Save"; state.lastSync=Date.now(); state.source="import"; save(); render();
+}
+if(pasteImportBtn) pasteImportBtn.onclick=()=>{
+ try{ importProfileText(profilePaste.value); pasteStatus.textContent="Profile imported successfully."; syncStatus.textContent="Profile imported successfully."; setTimeout(closeConnect,700); }
+ catch(err){ pasteStatus.textContent="That paste wasn't readable Warframe profile JSON. On the JSON page use Share → Copy, then paste the full contents here."; }
+};
+
 profileFile.onchange=e=>{
  const f=e.target.files[0];if(!f)return;
  const r=new FileReader();
  r.onload=()=>{try{
-   const parsed=JSON.parse(r.result);
-   const rr=parsed?.Results?.[0]||parsed?.results?.[0]||parsed;
-   if(!rr || typeof rr!=="object") throw new Error("No profile object found");
-   state.profile=parsed;
-   state.accountId=accountId.value.trim()||rr.AccountId||rr.accountId||state.accountId;
-   state.canonicalId=rr.AccountId||rr.accountId||state.accountId;
-   state.profilePlatform="PC / Cross-Save";
-   state.lastSync=Date.now();
-   state.source="import";
-   save();render();
+   importProfileText(r.result);
    syncStatus.textContent="Profile imported successfully.";
    setTimeout(closeConnect,700);
  }catch(err){syncStatus.textContent="That file wasn't readable profile JSON. Save the raw Warframe profile page and try again."}}
