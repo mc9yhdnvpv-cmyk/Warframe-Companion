@@ -1,0 +1,10 @@
+{
+  "name": "Warframe Companion \u2014 Tenno Deck",
+  "short_name": "Tenno Deck",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#090d13",
+  "theme_color": "#090d13",
+  "description": "Visual Warframe collection, mastery and PlayStation companion."
+}
