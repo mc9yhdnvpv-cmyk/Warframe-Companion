@@ -2,11 +2,43 @@
 <header><div><div class="eyebrow">PLAYSTATION • TENNO DECK</div><h1>Warframe Companion</h1></div><button id="connectBtn" class="round">◎</button></header>
 <main><section id="home" class="view active"></section><section id="collection" class="view"></section><section id="mastery" class="view"></section><section id="live" class="view"></section><section id="guide" class="view"></section></main>
 <nav><button class="active" data-view="home"><i>⌂</i>Home</button><button data-view="collection"><i>▦</i>Collection</button><button data-view="mastery"><i>✦</i>Mastery</button><button data-view="live"><i>◌</i>Live</button><button data-view="guide"><i>⌕</i>Guide</button></nav>
-<div id="backdrop"></div><aside id="sheet"><div class="handle"></div><div class="sheetHead"><h2>Connect Warframe</h2><button id="closeSheet">×</button></div><p class="muted">Warframe currently blocks automated profile reads from hosting services. This version keeps the profile import on your iPhone instead.</p>
-<div class="step"><b>1 • Get account ID</b><p>Sign in on Warframe's official site, then open user-data and copy the 24-character <code>user_id</code>.</p><a target="_blank" href="https://www.warframe.com/en/login">Open Warframe login ↗</a><a target="_blank" href="https://www.warframe.com/api/user-data">Open user-data ↗</a></div>
-<div class="step"><b>2 • Open your PC / Cross-Save profile</b><input id="accountId" placeholder="24-character account ID" autocapitalize="none"><button id="pcProfileUrlBtn" class="primary full">Open profile JSON ↗</button><div id="syncStatus" class="muted small"></div></div>
-<div class="step"><b>3 • Paste profile JSON</b><p>On the Warframe JSON page, tap Share → Copy. Return here, paste the copied profile below, then import it. Your profile stays stored locally on this iPhone.</p><textarea id="profilePaste" rows="7" placeholder="Paste the copied Warframe profile JSON here…" autocapitalize="none" autocomplete="off" spellcheck="false"></textarea><button id="pasteImportBtn" class="primary full">Import pasted profile</button><div id="pasteStatus" class="muted small"></div><details><summary>File import fallback</summary><label class="fileBtn">Choose saved profile JSON<input id="profileFile" type="file" accept=".json,.txt,application/json,text/plain"></label></details></div>
-<div class="step"><b>PlayStation fallback</b><p>If you need to check the PlayStation endpoint instead, use this button.</p><button id="profileUrlBtn" class="secondary full">Open PlayStation profile response ↗</button></div>
-<button id="exportBtn" class="secondary full">Export app backup</button><button id="resetBtn" class="danger full">Disconnect & reset</button></aside>
+<div id="backdrop"></div><aside id="sheet">
+<div class="handle"></div>
+<div class="sheetHead"><h2>Connect Warframe</h2><button id="closeSheet">×</button></div>
+<p class="muted">Warframe blocks server-hosted profile reads, but your signed-in iPhone can open the profile directly. This importer keeps the profile on your device.</p>
+
+<div class="step">
+  <b>1 • Get account ID</b>
+  <p>Sign in on Warframe's official site, then open user-data and copy the 24-character <code>user_id</code>.</p>
+  <a target="_blank" href="https://www.warframe.com/en/login">Open Warframe login ↗</a>
+  <a target="_blank" href="https://www.warframe.com/api/user-data">Open user-data ↗</a>
+</div>
+
+<div class="step">
+  <b>2 • Open your PC / Cross-Save profile</b>
+  <input id="accountId" placeholder="24-character account ID" autocapitalize="none" autocomplete="off">
+  <button id="pcProfileUrlBtn" class="primary full">Open profile JSON ↗</button>
+  <div id="syncStatus" class="muted small"></div>
+</div>
+
+<div class="step">
+  <b>3 • Import profile</b>
+  <p><b>Fastest method:</b> on the JSON page, press and hold in the text, choose <b>Select All</b>, then <b>Copy</b>. Return here and tap the button below.</p>
+  <button id="clipboardImportBtn" class="primary full">Import copied JSON</button>
+  <p class="muted small">If iPhone copied the web address instead of the JSON, this app will detect it and tell you instead of trying to import it.</p>
+  <details>
+    <summary>Paste manually instead</summary>
+    <textarea id="profilePaste" rows="7" placeholder='Paste the JSON beginning with {"Results":...}' autocapitalize="none" autocomplete="off" spellcheck="false"></textarea>
+    <button id="pasteImportBtn" class="secondary full">Import pasted JSON</button>
+  </details>
+  <details>
+    <summary>File import fallback</summary>
+    <label class="fileBtn">Choose saved profile JSON<input id="profileFile" type="file" accept=".json,application/json,text/plain"></label>
+  </details>
+</div>
+
+<button id="exportBtn" class="secondary full">Export app backup</button>
+<button id="resetBtn" class="danger full">Disconnect & reset</button>
+</aside>
 <div id="modalBackdrop"></div><div id="cardModal"></div>
 <script src="app.js"></script></body></html>
